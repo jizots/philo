@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/08/29 21:10:05 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:07:23 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,9 @@ int		philo_analys_argv(int ac, char *av[], t_args *args);
 int		ft_isdigit(int c);
 int		atoi_intmax(const char *str);
 int		str_cmp(const char *s1, const char *s2);
-//run_program
+//create_philo
 int		philo_create_philo(pthread_t **thread, int num_of_philo);
+//run_philo
 int		philo_pick_up_fork();
 int		philo_culc_time();
 int		philo_print_incorrect_argv(int flag);
