@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/08/29 21:03:07 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/02 18:28:10 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,25 @@ static int	is_matrix_valid(int ac, char *av[], void *f(char *))
 	return (0);
 }
 
-static int	import_criteria(int ac, t_args *args, char *av[])
+static int	import_criteria(int ac, t_param *param, char *av[])
 {
-	args->num_of_philo = atoi_intmax(av[1]);
-	args->time_to_die = atoi_intmax(av[2]);
-	args->time_to_eat = atoi_intmax(av[3]);
-	args->time_to_sleep = atoi_intmax(av[4]);
+	param->num_of_philo = atoi_intmax(av[1]);
+	param->time_to_die = atoi_intmax(av[2]);
+	param->time_to_eat = atoi_intmax(av[3]);
+	param->time_to_sleep = atoi_intmax(av[4]);
 	if (av[5])
-		args->num_of_must_eat = atoi_intmax(av[5]);
+		param->num_of_must_eat = atoi_intmax(av[5]);
 	else
-		args->num_of_must_eat = -1;
-	if (args->num_of_philo < 0 || args->time_to_die < 0
-		|| args->time_to_eat < 0 || args->time_to_sleep < 0)
+		param->num_of_must_eat = -1;
+	if (param->num_of_philo < 0 || param->time_to_die < 0
+		|| param->time_to_eat < 0 || param->time_to_sleep < 0)
 		return (1);
-	if (ac == 6 && args->num_of_must_eat < 0)
+	if (ac == 6 && param->num_of_must_eat < 0)
 		return (1);
 	return (0);
 }
 
-int		philo_analys_argv(int ac, char *av[], t_args *args)
+int		philo_analys_argv(int ac, char *av[], t_param *param)
 {
 	if (ac < 5)
 		return (philo_print_incorrect_argv(NOT_ENOUGH_AV));
@@ -85,7 +85,7 @@ int		philo_analys_argv(int ac, char *av[], t_args *args)
 		return (philo_print_incorrect_argv(TOO_MANY_AV));
 	else if (is_matrix_valid(ac, av, (void *)with_in_atoi) != 0)
 		return (philo_print_incorrect_argv(INVALID_MATRIX));
-	else if (import_criteria(ac, args, av) != 0)
+	else if (import_criteria(ac, param, av) != 0)
 		return (philo_print_incorrect_argv(INCLUDE_MINUS));
 	else
 		return (0);
@@ -93,8 +93,8 @@ int		philo_analys_argv(int ac, char *av[], t_args *args)
 
 // int main(int ac, char *av[])
 // {
-// 	t_args	args;
-// 	if (philo_analys_argv(ac, av, &args) != 0)
+// 	t_param	param;
+// 	if (philo_analys_argv(ac, av, &param) != 0)
 // 		;
 // 	else
 // 		printf("OK\n");
