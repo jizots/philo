@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_print_state.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/03 16:58:08 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:05:11 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	philo_print_state(pthread_mutex_t *print, int no_philo, int flag)
 	struct timezone	timezone;
 
 	status = pthread_mutex_lock(print);
+	if (flag_dead == 1)
+		return (1);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_LOCK, status));
 	if (gettimeofday(&time, &timezone) == -1)

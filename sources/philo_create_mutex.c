@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_create_mutex.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:07:30 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/03 16:40:08 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:29:19 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex)
 	}
 }
 
-static int	create_forks(pthread_mutex_t *forks, int num_of_mutex)
+static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
 {
 	int	i;
 
-	forks = malloc (sizeof(pthread_mutex_t) * num_of_mutex);
-	if (forks == NULL)
+	*forks = malloc (sizeof(pthread_mutex_t) * num_of_mutex);
+	if (*forks == NULL)
 		return (philo_print_init_error(MALLOC_ERROR));
 	i = 0;
 	while (i < num_of_mutex)
 	{
-		if (pthread_mutex_init(&((forks)[i]), NULL) != 0)
+		if (pthread_mutex_init(&((*forks)[i]), NULL) != 0)
 		{
-			free (forks);
-			philo_destory_mutex(forks, i);
+			philo_destory_mutex(*forks, i);
+			free (*forks);
 			return (philo_print_init_error(MUTEX_ERROR));
 		}
 		i++;
@@ -56,7 +56,7 @@ int	philo_create_mutex(t_param *param)
 {
 	int	status;
 
-	status = create_forks(param->forks, param->num_of_philo);
+	status = create_forks(&(param->forks), param->num_of_philo);
 	if (status == 0)
 	{
 		status = create_printer(&(param->print_mutex));
