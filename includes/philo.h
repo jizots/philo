@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:32:59 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:50:01 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ pthread_mutex_lock, pthread_mutex_unlock*/
 # include <pthread.h>
 # include <limits.h>
 # include <errno.h>
+# include <stdbool.h>
 
 /*-------define-------*/
 /*don't use global variables*/

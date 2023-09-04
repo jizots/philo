@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:45:29 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:51:24 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	with_in_atoi(char *str)
 	return (0);
 }
 
-static int	is_matrix_valid(int num_of_line, char *matrix[], void *f(char *))
+static bool	is_matrix_valid(int num_of_line, char *matrix[], void *f(char *))
 {
 	int	i;
 
@@ -53,10 +53,10 @@ static int	is_matrix_valid(int num_of_line, char *matrix[], void *f(char *))
 	while (i < num_of_line)
 	{
 		if ((f)(matrix[i]) != 0)
-			return (1);
+			return (false);
 		i++;
 	}
-	return (0);
+	return (true);
 }
 
 static int	import_criteria(int ac, t_param *param, char *av[])
@@ -85,7 +85,7 @@ int		philo_analys_argv(int ac, char *av[], t_param *param)
 		return (philo_print_incorrect_argv(NOT_ENOUGH_AV));
 	else if (ac > 6)
 		return (philo_print_incorrect_argv(TOO_MANY_AV));
-	else if (is_matrix_valid(ac, av, (void *)with_in_atoi) != 0)
+	else if (is_matrix_valid(ac, av, (void *)with_in_atoi) == false)
 		return (philo_print_incorrect_argv(INVALID_MATRIX));
 	else if (import_criteria(ac, param, av) != 0)
 		return (1);

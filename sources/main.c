@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 18:56:33 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:53:45 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,5 @@ int	main(int ac, char *av[])
 	status = philo_monitor(&param, mnt);
 	if (status != 0)
 		return (status);
-	printf("end\n");
 	return (0);
 }
