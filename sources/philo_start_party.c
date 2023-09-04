@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   philo_start_party.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/03 16:43:42 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:31:42 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	pick_up_fork(int flag, pthread_mutex_t *fork_left, pthread_mutex_t *fork_right, t_param *param)
+static int	pick_up_fork_wrap(t_param *param)
+{
+	int	status;
+
+	if (param->no_philo % 2 == 0)
+		status = pick_up_fork(param->no_philo, param->fork_left, param->fork_right, &(param->print_mutex));
+	else
+		status = pick_up_fork(param->no_philo, param->fork_right, param->fork_left, &(param->print_mutex));
+
+}
+
+static int	pick_up_fork(int no_philo, pthread_mutex_t *fork_first, pthread_mutex_t *fork_second, pthread_mutex_t *print_mutex)
 {
 	int	status;
 
