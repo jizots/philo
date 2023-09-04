@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:37:04 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:45:29 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static int	with_in_atoi(char *str)
 	return (0);
 }
 
-static int	is_matrix_valid(int ac, char *av[], void *f(char *))
+static int	is_matrix_valid(int num_of_line, char *matrix[], void *f(char *))
 {
 	int	i;
 
 	i = 1;
-	while (i < ac)
+	while (i < num_of_line)
 	{
-		if ((f)(av[i]) != 0)
+		if ((f)(matrix[i]) != 0)
 			return (1);
 		i++;
 	}
