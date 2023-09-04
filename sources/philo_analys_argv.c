@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/02 18:28:10 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:37:04 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	is_matrix_valid(int ac, char *av[], void *f(char *))
 static int	import_criteria(int ac, t_param *param, char *av[])
 {
 	param->num_of_philo = atoi_intmax(av[1]);
+	if (param->num_of_philo == 0)
+		return (philo_print_incorrect_argv(ZERO_PHILO));
 	param->time_to_die = atoi_intmax(av[2]);
 	param->time_to_eat = atoi_intmax(av[3]);
 	param->time_to_sleep = atoi_intmax(av[4]);
@@ -71,9 +73,9 @@ static int	import_criteria(int ac, t_param *param, char *av[])
 		param->num_of_must_eat = -1;
 	if (param->num_of_philo < 0 || param->time_to_die < 0
 		|| param->time_to_eat < 0 || param->time_to_sleep < 0)
-		return (1);
+		return (philo_print_incorrect_argv(INCLUDE_MINUS));
 	if (ac == 6 && param->num_of_must_eat < 0)
-		return (1);
+		return (philo_print_incorrect_argv(INCLUDE_MINUS));
 	return (0);
 }
 
@@ -86,16 +88,7 @@ int		philo_analys_argv(int ac, char *av[], t_param *param)
 	else if (is_matrix_valid(ac, av, (void *)with_in_atoi) != 0)
 		return (philo_print_incorrect_argv(INVALID_MATRIX));
 	else if (import_criteria(ac, param, av) != 0)
-		return (philo_print_incorrect_argv(INCLUDE_MINUS));
+		return (1);
 	else
 		return (0);
 }
-
-// int main(int ac, char *av[])
-// {
-// 	t_param	param;
-// 	if (philo_analys_argv(ac, av, &param) != 0)
-// 		;
-// 	else
-// 		printf("OK\n");
-// }

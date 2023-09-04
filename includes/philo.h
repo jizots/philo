@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/03 16:58:48 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:32:59 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ pthread_mutex_lock, pthread_mutex_unlock*/
 # define TOO_MANY_AV 2
 # define INVALID_MATRIX 3
 # define INCLUDE_MINUS 4
-# define MALLOC_ERROR 5
-# define MUTEX_ERROR 6
-# define THREAD_ERROR 7
-# define MUTEX_LOCK 8
-# define MUTEX_UNLOCK 9
-# define GETTIMEOFDAY 10
+# define ZERO_PHILO 5
+# define MALLOC_ERROR 1
+# define MUTEX_ERROR 2
+# define THREAD_ERROR 3
+# define MUTEX_LOCK 4
+# define MUTEX_UNLOCK 5
+# define GETTIMEOFDAY -1
 # define THREAD_JOIN 11
 # define EAT 1
 # define SLEEP 2
@@ -46,6 +47,13 @@ pthread_mutex_lock, pthread_mutex_unlock*/
 # define PICK_UP 5
 
 /*-------typedef-------*/
+
+typedef struct s_monitor
+{
+	int		id_philo;
+	long	last_time_eat;
+}	t_monitor;
+
 typedef struct s_param
 {
 	int				num_of_philo;
@@ -56,10 +64,19 @@ typedef struct s_param
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_t		*thread;
+}	t_param;
+
+typedef struct s_philo
+{
+	int				id_philo;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_of_must_eat;
 	pthread_mutex_t *fork_left;
 	pthread_mutex_t *fork_right;
-	int				no_philo;
-}	t_param;
+	pthread_mutex_t	*print_mutex;
+	t_monitor		*monitor;
+}	t_philo;
 
 /*-------prototype-------*/
 //analys_argv
@@ -70,16 +87,18 @@ int		str_cmp(const char *s1, const char *s2);
 //create_philo
 void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 int		philo_create_mutex(t_param *param);
-int		philo_create_philo(t_param *param, t_param **copy_param);
-int		philo_start_party(t_param *param);
-int		philo_culc_time();
+int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt);
+//simulate
+int		philo_start_party(t_philo *philo);
 //print_state
 int		philo_print_incorrect_argv(int flag);
 int		philo_print_init_error(int flag);
 int		philo_print_thread_error(int flag, int error_no);
-int		philo_print_state(pthread_mutex_t *print, int no_philo, int flag);
+int		philo_print_state(pthread_mutex_t *print, int id_philo, int flag);
 //destroy
-int		philo_monitor(t_param *param);
-int		philo_destroy();
+int		philo_monitor(t_param *param, t_monitor *monitor);
+int		destroy();
+//utils
+long	get_time(void);
 
 #endif

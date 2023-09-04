@@ -6,7 +6,7 @@
 #    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/03 16:59:16 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/04 16:04:37 by sotanaka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I${INCLUDES_DIR} -pthread
 
 SRCS = main.c philo_analys_argv.c philo_create_mutex.c philo_create_philo.c\
-		philo_start_party.c philo_print_state.c philo_monitor.c\
+		philo_start_party.c philo_print_state.c philo_monitor.c philo_utils.c\
 		atoi_intmax.c ft_isdigit.c str_cmp.c\
 
 SRCS_DIR = sources/

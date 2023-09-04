@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_print_state.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 09:05:11 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/04 19:33:22 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	philo_print_incorrect_argv(int flag)
 		printf("Error: Too many arguments\n");
 	else if (flag == INVALID_MATRIX || flag == INCLUDE_MINUS)
 		printf("Error: Number's must with in 0 to 2147483647\n");
+	else if (flag == ZERO_PHILO)
+		printf("Error: Number of philosophers must be greater than 0\n");
 	return (flag);
 }
 
@@ -48,33 +50,32 @@ int	philo_print_thread_error(int flag, int error_no)
 	return (flag);
 }
 
-int	philo_print_state(pthread_mutex_t *print, int no_philo, int flag)
+int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
 {
 	static int		flag_dead;
 	int 			status;
 	struct timeval	time;
-	struct timezone	timezone;
 
 	status = pthread_mutex_lock(print);
 	if (flag_dead == 1)
-		return (1);
+		return (DEAD);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_LOCK, status));
-	if (gettimeofday(&time, &timezone) == -1)
+	if (gettimeofday(&time, NULL) == -1)
 		return (philo_print_thread_error(GETTIMEOFDAY, errno));
 	if (flag == EAT)
-		printf("%d %d is eating\n", time.tv_usec, no_philo);
+		printf("%ld %3d is eating\n", get_time(), id_philo);
 	else if (flag == SLEEP)
-		printf("%d %d is sleeping\n", time.tv_usec, no_philo);
+		printf("%ld %3d is sleeping\n", get_time(), id_philo);
 	else if (flag == THINK)
-		printf("%d %d is thinking\n", time.tv_usec, no_philo);
+		printf("%ld %3d is thinking\n", get_time(), id_philo);
 	else if (flag == DEAD)
 	{
-		printf("%d %d died\n", time.tv_usec, no_philo);
+		printf("%ld %3d died\n", get_time(), id_philo);
 		flag_dead = 1;
 	}
 	else if (flag == PICK_UP)
-		printf("%d %d has taken a fork\n", time.tv_usec, no_philo);
+		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
 	status = pthread_mutex_unlock(print);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_UNLOCK, status));

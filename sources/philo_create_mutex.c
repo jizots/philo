@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_create_mutex.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:07:30 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 09:29:19 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/04 12:17:58 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex)
 		pthread_mutex_destroy(&(forks[i]));
 		i++;
 	}
+	free (forks);
 }
 
 static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
@@ -37,7 +38,6 @@ static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
 		if (pthread_mutex_init(&((*forks)[i]), NULL) != 0)
 		{
 			philo_destory_mutex(*forks, i);
-			free (*forks);
 			return (philo_print_init_error(MUTEX_ERROR));
 		}
 		i++;
