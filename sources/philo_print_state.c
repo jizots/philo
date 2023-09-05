@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:41:58 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:11:22 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ int	philo_print_thread_error(int flag, int error_no)
 
 void	print_state(int id_philo, int flag, int *flag_dead)
 {
+	long	time;
+
 	if (flag == EAT)
 	{
-		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
-		printf("%ld %3d is eating\n", get_time(), id_philo);
+		time = get_time();
+		printf("%ld %3d has taken a fork\n", time, id_philo);
+		printf("%ld %3d is eating\n", time, id_philo);
 	}
 	else if (flag == SLEEP)
 		printf("%ld %3d is sleeping\n", get_time(), id_philo);
