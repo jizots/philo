@@ -6,13 +6,14 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:56:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 14:27:40 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:37:35 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	culc_time(int num_of_philo, int time_to_die, t_monitor *monitor, pthread_mutex_t *print_mutex)
+static int	culc_time(int num_of_philo, int time_to_die,
+	t_monitor *monitor, pthread_mutex_t *print_mutex)
 {
 	int	i;
 
@@ -37,7 +38,8 @@ int	philo_monitor(t_param *param, t_monitor *monitor)
 	int	status;
 	int	i;
 
-	status = culc_time(param->num_of_philo, param->time_to_die, monitor ,&(param->print_mutex));
+	status = culc_time(param->num_of_philo,
+			param->time_to_die, monitor, &(param->print_mutex));
 	if (status != 0)
 	{
 		i = 0;
@@ -46,7 +48,7 @@ int	philo_monitor(t_param *param, t_monitor *monitor)
 			pthread_detach(param->thread[i]);
 			i++;
 		}
-		return (status);
+		return (philo_free(param, monitor, 1));
 	}
 	return (0);
 }

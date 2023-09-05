@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:50:01 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:22:36 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				num_of_must_eat;
-	pthread_mutex_t *fork_left;
-	pthread_mutex_t *fork_right;
+	pthread_mutex_t	*fork_left;
+	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*print_mutex;
 	t_monitor		*monitor;
 }	t_philo;
@@ -84,9 +84,7 @@ typedef struct s_philo
 int		philo_analys_argv(int ac, char *av[], t_param *param);
 int		ft_isdigit(int c);
 int		atoi_intmax(const char *str);
-int		str_cmp(const char *s1, const char *s2);
 //create_philo
-void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 int		philo_create_mutex(t_param *param);
 int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt);
 //simulate
@@ -96,10 +94,12 @@ int		philo_print_incorrect_argv(int flag);
 int		philo_print_init_error(int flag);
 int		philo_print_thread_error(int flag, int error_no);
 int		philo_print_state(pthread_mutex_t *print, int id_philo, int flag);
-//destroy
+//monitor
 int		philo_monitor(t_param *param, t_monitor *monitor);
-int		destroy();
 //utils
+int		str_cmp(const char *s1, const char *s2);
 long	get_time(void);
+void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
+int		philo_free(t_param *param, t_monitor *monitor, int status);
 
 #endif

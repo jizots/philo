@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:51:24 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:34:02 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	import_criteria(int ac, t_param *param, char *av[])
 	return (0);
 }
 
-int		philo_analys_argv(int ac, char *av[], t_param *param)
+int	philo_analys_argv(int ac, char *av[], t_param *param)
 {
 	if (ac < 5)
 		return (philo_print_incorrect_argv(NOT_ENOUGH_AV));

@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 14:18:41 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:36:24 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ static void	set_philo_each(t_param *param, t_philo **philo, t_monitor **mnt)
 		(*philo)[i].time_to_sleep = param->time_to_sleep;
 		(*philo)[i].num_of_must_eat = param->num_of_must_eat;
 		(*philo)[i].fork_left = &((param->forks)[i]);
-		(*philo)[i].fork_right = &((param->forks)[(i + 1) % param->num_of_philo]);
+		(*philo)[i].fork_right
+			= &((param->forks)[(i + 1) % param->num_of_philo]);
 		(*philo)[i].print_mutex = &(param->print_mutex);
 		(*philo)[i].monitor = &((*mnt)[i]);
 		i++;
 	}
 }
 
-static int	allocate_thread_and_data(t_param *param, t_philo **philo, t_monitor **mnt)
+static int	allocate_thread_and_data(t_param *param,
+	t_philo **philo, t_monitor **mnt)
 {
 	int	i;
 
@@ -61,7 +63,7 @@ static int	destroy_at_create_thread(t_param *param, t_philo **philo)
 	return (philo_print_init_error(THREAD_ERROR));
 }
 
-int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt)
+int	philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt)
 {
 	int		i;
 	int		status;

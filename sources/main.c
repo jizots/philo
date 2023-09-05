@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:53:45 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:35:28 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,10 @@ int	main(int ac, char *av[])
 	if (status != 0)
 		return (status);
 	return (0);
+}
+
+__attribute__((destructor))
+static void	destructor(void)
+{
+	system("leaks -q philo");
 }

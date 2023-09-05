@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/05 14:41:27 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:47:01 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ static int	pick_up_fork_wrap(t_philo *philo)
 	return (status);
 }
 
-static int	drop_off_fork(pthread_mutex_t *fork_left, pthread_mutex_t *fork_right)
+static int	drop_off_fork(pthread_mutex_t *fork_left,
+	pthread_mutex_t *fork_right)
 {
-	int	status;
-
-	status = pthread_mutex_unlock(fork_left);
-	if (status != 0)
-		return (philo_print_thread_error(MUTEX_UNLOCK, status));
-	status = pthread_mutex_unlock(fork_right);
-	if (status != 0)
-		return (philo_print_thread_error(MUTEX_UNLOCK, status));
+	pthread_mutex_unlock(fork_left);
+	pthread_mutex_unlock(fork_right);
 	return (0);
 }
 

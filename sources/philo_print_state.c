@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 14:07:01 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:41:58 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,8 @@ int	philo_print_thread_error(int flag, int error_no)
 	return (flag);
 }
 
-int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
+void	print_state(int id_philo, int flag, int *flag_dead)
 {
-	static int		flag_dead;
-	int 			status;
-
-	status = pthread_mutex_lock(print);
-	if (status != 0)
-		return (philo_print_thread_error(MUTEX_LOCK, status));
-	if (flag_dead == 1)
-		return (DEAD);
 	if (flag == EAT)
 	{
 		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
@@ -72,10 +64,23 @@ int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
 	else if (flag == DEAD)
 	{
 		printf("%ld %3d died\n", get_time(), id_philo);
-		flag_dead = 1;
+		*flag_dead = 1;
 	}
 	else if (flag == PICK_UP)
 		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
+}
+
+int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
+{
+	static int		flag_dead;
+	int				status;
+
+	status = pthread_mutex_lock(print);
+	if (status != 0)
+		return (philo_print_thread_error(MUTEX_LOCK, status));
+	if (flag_dead == 1)
+		return (DEAD);
+	print_state(id_philo, flag, &flag_dead);
 	status = pthread_mutex_unlock(print);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_UNLOCK, status));
