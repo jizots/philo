@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:36:24 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:53:40 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	allocate_thread_and_data(t_param *param,
 	while (i < param->num_of_philo)
 	{
 		(*mnt)[i].id_philo = i + 1;
+		(*mnt)[i].num_of_eat = 0;
 		i++;
 	}
 	return (0);

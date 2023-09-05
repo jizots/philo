@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:22:36 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:24:35 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_monitor
 {
 	int		id_philo;
 	long	last_time_eat;
+	int		num_of_eat;
 }	t_monitor;
 
 typedef struct s_param
@@ -99,6 +100,7 @@ int		philo_monitor(t_param *param, t_monitor *monitor);
 //utils
 int		str_cmp(const char *s1, const char *s2);
 long	get_time(void);
+long	get_time_usec(void);
 void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 int		philo_free(t_param *param, t_monitor *monitor, int status);
 

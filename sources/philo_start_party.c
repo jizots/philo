@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/05 16:25:20 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:32:50 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,20 @@ static void	drop_off_fork(pthread_mutex_t *fork_left,
 	pthread_mutex_unlock(fork_right);
 }
 
+void static	usleep_precisely(int microseconds)
+{
+	long	start_time;
+	long	current_time;
+
+	start_time = get_time_usec();
+	current_time = start_time;
+	while (current_time - start_time < microseconds)
+	{
+		usleep(50);
+		current_time = get_time_usec();
+	}
+}
+
 int	philo_start_party(t_philo *philo)
 {
 	int	status;
@@ -65,12 +79,13 @@ int	philo_start_party(t_philo *philo)
 		status = philo_print_state(philo->print_mutex, philo->id_philo, EAT);
 		if (status != 0)
 			return (status);
-		usleep(philo->time_to_eat * 1000 - 350);
+		usleep_precisely(philo->time_to_eat * 1000);
+		philo->monitor->num_of_eat += 1;
 		drop_off_fork(philo->fork_left, philo->fork_right);
 		status = philo_print_state(philo->print_mutex, philo->id_philo, SLEEP);
 		if (status != 0)
 			return (status);
-		usleep(philo->time_to_sleep * 1000 - 350);
+		usleep_precisely(philo->time_to_sleep * 1000);
 		status = philo_print_state(philo->print_mutex, philo->id_philo, THINK);
 		if (status != 0)
 			return (status);
