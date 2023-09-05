@@ -6,24 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:07:30 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 12:17:58 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 12:56:12 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_of_mutex)
-	{
-		pthread_mutex_destroy(&(forks[i]));
-		i++;
-	}
-	free (forks);
-}
 
 static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
 {
