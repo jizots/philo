@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:56:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:07:30 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:27:40 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static int	culc_time(int num_of_philo, int time_to_die, t_monitor *monitor, pthr
 		i = 0;
 		while (i < num_of_philo)
 		{
-// printf("last_time_eat: %ld\n", monitor[i]->last_time_eat);
-			if ((get_time() - monitor[i].last_time_eat) >= time_to_die)
+			if ((get_time() - monitor[i].last_time_eat) > time_to_die)
 			{
 				philo_print_state(print_mutex, monitor[i].id_philo, DEAD);
 				return (1);

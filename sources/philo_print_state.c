@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:33:22 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:07:01 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
 {
 	static int		flag_dead;
 	int 			status;
-	struct timeval	time;
 
 	status = pthread_mutex_lock(print);
-	if (flag_dead == 1)
-		return (DEAD);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_LOCK, status));
-	if (gettimeofday(&time, NULL) == -1)
-		return (philo_print_thread_error(GETTIMEOFDAY, errno));
+	if (flag_dead == 1)
+		return (DEAD);
 	if (flag == EAT)
+	{
+		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
 		printf("%ld %3d is eating\n", get_time(), id_philo);
+	}
 	else if (flag == SLEEP)
 		printf("%ld %3d is sleeping\n", get_time(), id_philo);
 	else if (flag == THINK)

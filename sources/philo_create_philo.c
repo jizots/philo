@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/04 19:11:32 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:18:41 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt)
 			return (destroy_at_create_thread(param, philo));
 		i++;
 	}
-	usleep(100 * 1000);
+	usleep(50 * 1000);
 	return (0);
 }

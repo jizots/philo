@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/04 19:12:56 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/05 14:41:27 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	pick_up_fork(int id_philo, pthread_mutex_t *fork_first,
 	status = pthread_mutex_lock(fork_second);
 	if (status != 0)
 		return (philo_print_thread_error(MUTEX_LOCK, status));
-	status = philo_print_state(print_mutex, id_philo, PICK_UP);
 	return (status);
 }
 
