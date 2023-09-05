@@ -6,7 +6,7 @@
 #    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/05 14:10:25 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/05 20:08:53 by sotanaka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS = main.c philo_analys_argv.c philo_create_mutex.c philo_create_philo.c\
 		philo_start_party.c philo_print_state.c philo_monitor.c philo_utils.c\
 		atoi_intmax.c ft_isdigit.c\
 
-SRCS_DIR = sources/
+SRCS_DIR = philo/
 INCLUDES_DIR = includes/
 OBJS_DIR = objs/
 
