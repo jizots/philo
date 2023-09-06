@@ -6,11 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 19:29:52 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:11:24 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_b.h"
 
 int	philo_print_incorrect_argv(int flag)
 {
@@ -25,28 +25,16 @@ int	philo_print_incorrect_argv(int flag)
 	return (flag);
 }
 
-int	philo_print_init_error(int flag)
+int	philo_print_basic_error(int flag)
 {
-	if (flag == MALLOC_ERROR)
-		printf("Error: malloc\n");
-	else if (flag == MUTEX_ERROR)
-		printf("Error: mutex\n");
-	else if (flag == THREAD_ERROR)
-		printf("Error: thread\n");
-	return (flag);
-}
-
-//want to use strerror...(printf("Error: %s\n", strerror(error_no));)
-int	philo_print_thread_error(int flag, int error_no)
-{
-	if (flag == MUTEX_LOCK)
-		printf("Error: mutex_lock, errno: %d\n", error_no);
-	else if (flag == MUTEX_UNLOCK)
-		printf("Error: mutex_unlock, errno: %d\n", error_no);
+	if (flag == SEM_ERROR)
+		printf("Error: sem: errno %d\n", errno);
+	else if (flag == MALLOC_ERROR)
+		printf("Error: malloc: errno %d\n", errno);
+	else if (flag == FORK_ERROR)
+		printf("Error: fork: errno %d\n", errno);
 	else if (flag == GETTIMEOFDAY)
-		printf("Error: gettimeofday, errno: %d\n", error_no);
-	else if (flag == THREAD_JOIN)
-		printf("Error: thread_join, errno: %d\n", error_no);
+		printf("Error: gettimeofday, errno: %d\n");
 	return (flag);
 }
 
@@ -85,12 +73,12 @@ int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
 
 	status = pthread_mutex_lock(print);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_LOCK, status));
+		return (philo_print_with_errno(MUTEX_LOCK, status));
 	if (flag_dead == 1)
 		return (DEAD);
 	print_state(id_philo, flag, &flag_dead);
 	status = pthread_mutex_unlock(print);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_UNLOCK, status));
+		return (philo_print_with_errno(MUTEX_UNLOCK, status));
 	return (0);
 }

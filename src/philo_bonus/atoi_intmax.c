@@ -6,11 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 14:07:12 by tchoquet          #+#    #+#             */
-/*   Updated: 2023/09/05 18:35:48 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:24:14 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_b.h"
 
 static unsigned int	find_first_index(const char *str)
 {

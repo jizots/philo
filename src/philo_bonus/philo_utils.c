@@ -6,24 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:55:09 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 11:46:51 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:17:15 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-
-void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_of_mutex)
-	{
-		pthread_mutex_destroy(&(forks[i]));
-		i++;
-	}
-	free (forks);
-}
+#include "philo_b.h"
 
 int	str_cmp(const char *s1, const char *s2)
 {
@@ -44,7 +31,7 @@ long	get_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (philo_print_thread_error(GETTIMEOFDAY, -1));
+		return (philo_print_with_errno(GETTIMEOFDAY, -1));
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
@@ -53,6 +40,6 @@ long	get_time_usec(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (philo_print_thread_error(GETTIMEOFDAY, -1));
+		return (philo_print_with_errno(GETTIMEOFDAY, -1));
 	return (time.tv_sec * 1000000 + time.tv_usec);
 }

@@ -6,11 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:34:02 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:24:24 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_b.h"
 
 static int	str_isdigit(char *str)
 {

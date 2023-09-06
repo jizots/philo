@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 10:07:30 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:34:20 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:56:33 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
 
 	*forks = malloc (sizeof(pthread_mutex_t) * num_of_mutex);
 	if (*forks == NULL)
-		return (philo_print_init_error(MALLOC_ERROR));
+		return (philo_print_basic_error(MALLOC_ERROR));
 	i = 0;
 	while (i < num_of_mutex)
 	{
 		if (pthread_mutex_init(&((*forks)[i]), NULL) != 0)
 		{
 			philo_destory_mutex(*forks, i);
-			return (philo_print_init_error(MUTEX_ERROR));
+			return (philo_print_basic_error(MUTEX_ERROR));
 		}
 		i++;
 	}
@@ -35,7 +35,7 @@ static int	create_forks(pthread_mutex_t **forks, int num_of_mutex)
 static int	create_printer(pthread_mutex_t *print_mutex)
 {
 	if (pthread_mutex_init(print_mutex, NULL) != 0)
-		return (philo_print_init_error(MUTEX_ERROR));
+		return (philo_print_basic_error(MUTEX_ERROR));
 	return (0);
 }
 
