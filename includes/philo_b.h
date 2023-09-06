@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 20:12:14 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:47:38 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 /*memset, printf, malloc, free, write, fork, kill, exit, 
 pthread_create, pthread_detach, pthread_join, usleep, gettimeofday, 
 waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
-// # include <string.h>
-// # include <stdio.h>
-// # include <stdlib.h>
-// # include <unistd.h>
-// # include <sys/time.h>
-// # include <pthread.h>
-// # include <limits.h>
-// # include <errno.h>
-// # include <stdbool.h>
+# include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <sys/wait.h>
+# include <semaphore.h>
+# include <limits.h>
+# include <errno.h>
+# include <stdbool.h>
 
 /*-------define-------*/
 /*don't use global variables*/
@@ -81,6 +84,10 @@ int		atoi_intmax(const char *str);
 //simulate
 //print_state
 //monitor
-//utils
+// utils
+int		str_cmp(const char *s1, const char *s2);
+long	get_time(void);
+long	get_time_usec(void);
+void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 
 #endif
