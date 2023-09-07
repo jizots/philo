@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:16:37 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 16:17:00 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 11:55:39 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex)
 	free (forks);
 }
 
-void	free_philo_data(pid_t *pid, t_monitor *mnt)
-{
-	free(pid);
-	free(mnt);
-}
-
 int	sem_close_and_unlink(sem_t *sem, char *name)
 {
 	int	status;
@@ -41,5 +35,21 @@ int	sem_close_and_unlink(sem_t *sem, char *name)
 	status = sem_unlink(name);
 	if (status == -1)
 		return (philo_print_basic_error(SEM_ERROR));
+	return (0);
+}
+
+int philo_destroy_semaphore(t_param *param)
+{
+	int	status;
+
+	status = sem_close_and_unlink(param->forks, "forks");
+	if (status != 0)
+		return (status);
+	status = sem_close_and_unlink(param->cordinator, "cordinator");
+	if (status != 0)
+		return (status);
+	status = sem_close_and_unlink(param->print_sem, "print_sem");
+	if (status != 0)
+		return (status);
 	return (0);
 }

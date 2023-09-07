@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 16:11:24 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:50:38 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,20 @@ int	philo_print_basic_error(int flag)
 	else if (flag == FORK_ERROR)
 		printf("Error: fork: errno %d\n", errno);
 	else if (flag == GETTIMEOFDAY)
-		printf("Error: gettimeofday, errno: %d\n");
+		printf("Error: gettimeofday: errno %d\n", errno);
+	else if (flag == KILL_ERROR)
+		printf("Error: kill: errno %d\n", errno);
 	return (flag);
 }
 
-void	print_state(int id_philo, int flag, int *flag_dead)
+int	philo_print_with_errno(int flag, int error_no)
+{
+	if (flag == THREAD_ERROR)
+		printf("Error: thread join: errno %d\n", error_no);
+	return (flag);
+}
+
+void	print_state(int id_philo, int flag)
 {
 	long	time;
 
@@ -53,32 +62,23 @@ void	print_state(int id_philo, int flag, int *flag_dead)
 	else if (flag == THINK)
 		printf("%ld %3d is thinking\n", get_time(), id_philo);
 	else if (flag == DEAD)
-	{
 		printf("%ld %3d died\n", get_time(), id_philo);
-		*flag_dead = 1;
-	}
 	else if (flag == PICK_UP)
 		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
-	else if (flag == FULL)
-	{
-		printf("All philosophers are full\n");
-		*flag_dead = 1;
-	}
 }
 
-int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
+int	philo_print_state(sem_t *print, int id_philo, int flag)
 {
-	static int		flag_dead;
-	int				status;
+	int	status;
 
-	status = pthread_mutex_lock(print);
+	status = sem_wait(print);
 	if (status != 0)
-		return (philo_print_with_errno(MUTEX_LOCK, status));
-	if (flag_dead == 1)
-		return (DEAD);
-	print_state(id_philo, flag, &flag_dead);
-	status = pthread_mutex_unlock(print);
+		return (philo_print_basic_error(SEM_ERROR));
+	print_state(id_philo, flag);
+	if (flag == DEAD)
+		exit (DEAD);
+	status = sem_post(print);
 	if (status != 0)
-		return (philo_print_with_errno(MUTEX_UNLOCK, status));
+		return (philo_print_basic_error(SEM_ERROR));
 	return (0);
 }

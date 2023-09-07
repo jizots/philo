@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/05 19:55:26 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:19:07 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static int	pick_up_fork(int id_philo, pthread_mutex_t *fork_first,
 
 	status = pthread_mutex_lock(fork_first);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_LOCK, status));
+		return (philo_print_with_errno(MUTEX_LOCK, status));
 	status = philo_print_state(print_mutex, id_philo, PICK_UP);
 	if (status != 0)
 		return (status);
 	status = pthread_mutex_lock(fork_second);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_LOCK, status));
+		return (philo_print_with_errno(MUTEX_LOCK, status));
 	return (status);
 }
 
@@ -39,6 +39,7 @@ static int	pick_up_fork_wrap(t_philo *philo)
 	else
 		status = pick_up_fork(philo->id_philo, philo->fork_right,
 				philo->fork_left, philo->print_mutex);
+	philo->monitor->last_time_eat = get_time();
 	return (status);
 }
 
@@ -70,7 +71,6 @@ int	philo_start_party(t_philo *philo)
 	{
 		if (pick_up_fork_wrap(philo) != 0)
 			return (1);
-		philo->monitor->last_time_eat = get_time();
 		if (philo_print_state(philo->print_mutex, philo->id_philo, EAT) != 0)
 			return (1);
 		usleep_precisely(philo->time_to_eat * 1000);

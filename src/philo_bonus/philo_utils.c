@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:55:09 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 16:17:15 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 16:56:13 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,18 @@ long	get_time_usec(void)
 	if (gettimeofday(&time, NULL) == -1)
 		return (philo_print_with_errno(GETTIMEOFDAY, -1));
 	return (time.tv_sec * 1000000 + time.tv_usec);
+}
+
+void	usleep_precisely(int microseconds)
+{
+	long	start_time;
+	long	current_time;
+
+	start_time = get_time_usec();
+	current_time = start_time;
+	while (current_time - start_time < microseconds)
+	{
+		usleep(30);
+		current_time = get_time_usec();
+	}
 }

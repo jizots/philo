@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 16:14:58 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 11:52:57 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_param(t_param *param)
 int	main(int ac, char *av[])
 {
 	t_param		param;
-	t_monitor	*mnt;
 	int			status;
 
 	init_param(&param);
@@ -34,11 +33,10 @@ int	main(int ac, char *av[])
 	status = philo_create_semaphore(&param);
 	if (status != 0)
 		return (status);
-	status = philo_create_philo(&param, &mnt);
+	status = philo_create_philo(&param);
 	if (status != 0)
 	{
-		sem_close_and_unlink(param.forks, "forks");
-		sem_close_and_unlink(param.print_sem, "print_sem");
+		philo_destroy_semaphore(&param);
 		return (status);
 	}
 	

@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 19:29:52 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:19:06 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	philo_print_init_error(int flag)
 }
 
 //want to use strerror...(printf("Error: %s\n", strerror(error_no));)
-int	philo_print_thread_error(int flag, int error_no)
+int	philo_print_with_errno(int flag, int error_no)
 {
 	if (flag == MUTEX_LOCK)
 		printf("Error: mutex_lock, errno: %d\n", error_no);
@@ -85,12 +85,12 @@ int	philo_print_state(pthread_mutex_t *print, int id_philo, int flag)
 
 	status = pthread_mutex_lock(print);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_LOCK, status));
+		return (philo_print_with_errno(MUTEX_LOCK, status));
 	if (flag_dead == 1)
 		return (DEAD);
 	print_state(id_philo, flag, &flag_dead);
 	status = pthread_mutex_unlock(print);
 	if (status != 0)
-		return (philo_print_thread_error(MUTEX_UNLOCK, status));
+		return (philo_print_with_errno(MUTEX_UNLOCK, status));
 	return (0);
 }

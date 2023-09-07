@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 16:08:33 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:43:11 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
 # define SEM_ERROR 1
 # define MALLOC_ERROR 2
 # define FORK_ERROR 3
+# define THREAD_ERROR 4
+# define KILL_ERROR 5
 # define GETTIMEOFDAY -1
-# define THREAD_JOIN 11
 # define EAT 1
 # define SLEEP 2
 # define THINK 3
@@ -55,10 +56,13 @@ waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
 
 typedef struct s_monitor
 {
-	int		id_philo;
-	long	last_time_eat;
-	int		num_of_eat;
-	int		num_of_must_eat;
+	int			id_philo;
+	int			time_to_die;
+	long		last_time_eat;
+	int			num_of_eat;
+	int			num_of_must_eat;
+	sem_t		*print_sem;
+	pthread_t	monitor_death;
 }	t_monitor;
 
 typedef struct s_param
@@ -69,6 +73,7 @@ typedef struct s_param
 	int		time_to_sleep;
 	int		num_of_must_eat;
 	sem_t	*forks;
+	sem_t	*cordinator;
 	sem_t	*print_sem;
 	pid_t	*pid;
 }	t_param;
@@ -79,18 +84,23 @@ int		philo_analys_argv(int ac, char *av[], t_param *param);
 int		ft_isdigit(int c);
 int		atoi_intmax(const char *str);
 //create_philo
-int		philo_create_philo(t_param *param, t_monitor **mnt);
+int		philo_create_philo(t_param *param);
 //simulate
 //print_state
 int		philo_print_incorrect_argv(int flag);
 int		philo_print_basic_error(int flag);
+int		philo_print_with_errno(int flag, int error_no);
+int		philo_print_state(sem_t *print, int id_philo, int flag);
 //monitor
-// utils
+int		philo_create_monitor_thread(t_param *param, t_monitor *mnt);
+//utils
 int		str_cmp(const char *s1, const char *s2);
 long	get_time(void);
 long	get_time_usec(void);
+void	usleep_precisely(int microseconds);
+//destory
 void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
-void	free_philo_data(pid_t *pid, t_monitor *mnt);
 int		sem_close_and_unlink(sem_t *sem, char *name);
+int 	philo_destroy_semaphore(t_param *param);
 
 #endif
