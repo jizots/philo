@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/06 13:58:03 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 09:08:35 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt);
 int		philo_start_party(t_philo *philo);
 //print_state
 int		philo_print_incorrect_argv(int flag);
-int		philo_print_basic_error(int flag);
+int		philo_print_init_error(int flag);
 int		philo_print_with_errno(int flag, int error_no);
 int		philo_print_state(pthread_mutex_t *print, int id_philo, int flag);
 //monitor

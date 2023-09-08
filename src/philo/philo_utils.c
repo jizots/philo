@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:55:09 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 17:23:20 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 09:10:00 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ long	get_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (philo_print_thread_error(GETTIMEOFDAY, -1));
+		return (philo_print_with_errno(GETTIMEOFDAY, -1));
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
@@ -64,6 +64,6 @@ long	get_time_usec(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (philo_print_thread_error(GETTIMEOFDAY, -1));
+		return (philo_print_with_errno(GETTIMEOFDAY, -1));
 	return (time.tv_sec * 1000000 + time.tv_usec);
 }
