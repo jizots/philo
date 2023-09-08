@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:31:40 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 13:38:23 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:24:23 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,6 @@ static void	remove_pid(pid_t *pid, int num_of_philo, int pid_removal)
 			pid[i] = 0;
 		i++;
 	}
-}
-
-static int	kill_remain_philo(pid_t *pid, int num_of_philo)
-{
-	int		i;
-
-	i = 0;
-	while (i < num_of_philo)
-	{
-		if (pid[i] != 0)
-		{
-			if (kill(pid[i], SIGKILL) != 0)
-				return (philo_print_basic_error(KILL_ERROR));
-		}
-		i++;
-	}
-	return (1);
 }
 
 static int	wait_full(t_param *param)
@@ -89,6 +72,23 @@ static int	wait_death_someone(t_param *param)
 	return (kill_remain_philo(param->pid, param->num_of_philo));
 }
 
+static int	at_parent(t_param *param)
+{
+	int	status;
+
+	if (param->num_of_must_eat != -1)
+	{
+		status = wait_full(param);
+		free(param->pid);
+	}
+	else
+	{
+		status = wait_death_someone(param);
+		free(param->pid);
+	}
+	return (status);
+}
+
 int	philo_create_philo(t_param *param)
 {
 	int		i;
@@ -109,15 +109,5 @@ int	philo_create_philo(t_param *param)
 			philo_start_party(param, i + 1);
 		i++;
 	}
-	if (param->num_of_must_eat != -1)
-	{
-		status = wait_full(param);
-		free(param->pid);
-	}
-	else
-	{
-		status = wait_death_someone(param);
-		free(param->pid);
-	}
-	return (status);
+	return (at_parent);
 }

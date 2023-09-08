@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 13:52:49 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:22:03 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	usleep_precisely(int microseconds);
 void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 int		sem_close_and_unlink(sem_t *sem, char *name);
 int		philo_destroy_semaphore(t_param *param);
+int		kill_remain_philo(pid_t *pid, int num_of_philo);
 //fork_handling
 int		philo_drop_forks(sem_t *forks, sem_t *cordinator);
 
