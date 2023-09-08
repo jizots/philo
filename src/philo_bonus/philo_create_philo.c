@@ -6,19 +6,11 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:31:40 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 14:24:23 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:42:06 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_b.h"
-
-static int	allocate_philo_data(pid_t **pid, int num_of_philo)
-{
-	*pid = malloc(sizeof(pid_t) * num_of_philo);
-	if (*pid == NULL)
-		return (philo_print_basic_error(MALLOC_ERROR));
-	return (0);
-}
 
 static void	remove_pid(pid_t *pid, int num_of_philo, int pid_removal)
 {
@@ -35,18 +27,21 @@ static void	remove_pid(pid_t *pid, int num_of_philo, int pid_removal)
 
 static int	wait_full(t_param *param)
 {
-	int		i;
-	int		status;
-	int		exited;
+	int	i;
+	int	status;
+	int	exited;
 
 	i = 0;
 	while (i < param->num_of_philo)
 	{
 		status = wait(&exited);
 		if (status == -1)
-			break ;//verify
+		{
+			philo_print_basic_error(WAIT_ERROR);
+			break ;
+		}
 		remove_pid(param->pid, param->num_of_philo, status);
-		if (WEXITSTATUS(exited) == 0 && WIFEXITED(exited))
+		if (WIFEXITED(exited) && WEXITSTATUS(exited) == 0)
 			i++;
 		else
 			break ;
@@ -60,14 +55,14 @@ static int	wait_full(t_param *param)
 
 static int	wait_death_someone(t_param *param)
 {
-	int		status;
-	int		exited;
+	int	status;
+	int	exited;
 
 	status = wait(&exited);
 	if (status == -1)
 		(philo_print_basic_error(WAIT_ERROR));
 	remove_pid(param->pid, param->num_of_philo, status);
-	if (WEXITSTATUS(exited) == DEAD)
+	if (!WIFEXITED(exited))
 		;
 	return (kill_remain_philo(param->pid, param->num_of_philo));
 }
@@ -92,10 +87,10 @@ static int	at_parent(t_param *param)
 int	philo_create_philo(t_param *param)
 {
 	int		i;
-	int		status;
 
-	if (allocate_philo_data(&(param->pid), param->num_of_philo) != 0)
-		return (1);
+	param->pid = malloc(sizeof(pid_t) * param->num_of_philo);
+	if (param->pid == NULL)
+		return (philo_print_basic_error(MALLOC_ERROR));
 	i = 0;
 	while (i < param->num_of_philo)
 	{
@@ -109,5 +104,5 @@ int	philo_create_philo(t_param *param)
 			philo_start_party(param, i + 1);
 		i++;
 	}
-	return (at_parent);
+	return (at_parent(param));
 }

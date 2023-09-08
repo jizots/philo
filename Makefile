@@ -6,12 +6,12 @@
 #    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/08 13:49:40 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/08 14:52:47 by sotanaka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-BNAME = bonus_philo
+BNAME = philo_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 CFLAGS += -I${INCLUDES_DIR} -pthread
@@ -55,7 +55,7 @@ ${NAME}: ${OBJS}
 bonus:
 	${MAKE} WITH_BONUS=1 all
 
-clean: 
+clean:
 	rm -f ${OBJS}
 	rmdir ${OBJS_DIR} 2>/dev/null || true
 	rm -f ${BOBJS}
