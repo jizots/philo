@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 14:31:40 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 18:54:29 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:38:23 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ static int	wait_full(t_param *param)
 	while (i < param->num_of_philo)
 	{
 		status = wait(&exited);
-		if (status != -1)
-			break ;
+		if (status == -1)
+			break ;//verify
 		remove_pid(param->pid, param->num_of_philo, status);
-		if (WEXITSTATUS(exited) == 0)
+		if (WEXITSTATUS(exited) == 0 && WIFEXITED(exited))
 			i++;
 		else
 			break ;
@@ -77,21 +77,15 @@ static int	wait_full(t_param *param)
 
 static int	wait_death_someone(t_param *param)
 {
-	int		i;
 	int		status;
 	int		exited;
 
-	i = 0;
-	while (i < param->num_of_philo)
-	{
-		status = wait(&exited);
-		if (status != -1)
-			break ;
-		remove_pid(param->pid, param->num_of_philo, status);
-		if (WEXITSTATUS(exited) == DEAD)
-			break ;
-		i++;
-	}
+	status = wait(&exited);
+	if (status == -1)
+		(philo_print_basic_error(WAIT_ERROR));
+	remove_pid(param->pid, param->num_of_philo, status);
+	if (WEXITSTATUS(exited) == DEAD)
+		;
 	return (kill_remain_philo(param->pid, param->num_of_philo));
 }
 

@@ -6,7 +6,7 @@
 #    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/07 19:38:05 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/08 13:49:40 by sotanaka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS = main.c philo_analys_argv.c philo_create_mutex.c philo_create_philo.c\
 
 BSRCS = main.c philo_analys_argv.c philo_create_semaphore.c philo_create_philo.c\
 		philo_start_party.c philo_print_state.c philo_monitor.c philo_utils.c\
-		philo_destroy.c\
+		philo_destroy.c philo_fork_handling.c\
 		atoi_intmax.c ft_isdigit.c\
 
 SRCS_DIR = src/philo/
@@ -34,12 +34,12 @@ BOBJS_DIR = bobjs/
 OBJS = ${addprefix ${OBJS_DIR}, ${SRCS:%.c=%.o}}
 BOBJS = ${addprefix ${BOBJS_DIR}, ${BSRCS:%.c=%.o}}
 
-bonus:
-	$(eval NAME := $(BNAME))
-	$(eval SRCS_DIR := $(BSRCS_DIR))
-	$(eval OBJS_DIR := $(BOBJS_DIR))
-	$(eval OBJS := $(BOBJS))
-	$(MAKE) all
+ifdef WITH_BONUS
+	NAME = ${BNAME}
+	SRCS = ${BSRCS}
+	SRCS_DIR = ${BSRCS_DIR}
+	OBJS_DIR = ${BOBJS_DIR}
+endif
 
 all: ${OBJS_DIR} ${NAME}
 
@@ -51,6 +51,9 @@ ${OBJS_DIR}%.o: ${SRCS_DIR}%.c | ${OBJS_DIR}
 
 ${NAME}: ${OBJS}
 	${CC} ${CFLAGS} -o ${NAME} ${OBJS}
+
+bonus:
+	${MAKE} WITH_BONUS=1 all
 
 clean: 
 	rm -f ${OBJS}

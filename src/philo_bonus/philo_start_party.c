@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:19:26 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 17:58:41 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:46:42 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static void	init_monitor(t_monitor *mnt, t_param *param, int id_philo)
 	mnt->time_to_die = param->time_to_die;
 	mnt->num_of_eat = 0;
 	mnt->num_of_must_eat = param->num_of_must_eat;
+	mnt->forks = param->forks;
+	mnt->cordinator = param->cordinator;
 	mnt->print_sem = param->print_sem;
-	mnt->last_time_eat = get_time_usec();
+	mnt->last_time_eat = get_time();
 }
 
 static int	pick_forks(t_param *param, t_monitor *mnt)
@@ -44,12 +46,11 @@ static void	p_eat(t_param *param, t_monitor *mnt)
 
 static int	p_sleep(t_param *param, t_monitor *mnt)
 {
-	if (sem_post(param->forks) != 0)
-		return (philo_print_basic_error(SEM_ERROR));
-	if (sem_post(param->forks) != 0)
-		return (philo_print_basic_error(SEM_ERROR));
-	if (sem_post(param->cordinator) != 0)
-		return (philo_print_basic_error(SEM_ERROR));
+	int	status;
+
+	status = philo_drop_forks(param->forks, param->cordinator);
+	if (status != 0)
+		return (status);
 	philo_print_state(param->print_sem, mnt->id_philo, SLEEP);
 	usleep_precisely(param->time_to_sleep * 1000);
 	return (0);
@@ -58,10 +59,10 @@ static int	p_sleep(t_param *param, t_monitor *mnt)
 int	philo_start_party(t_param *param, int id_philo)
 {
 	t_monitor	mnt;
-	int	status;
+	int			status;
 
 	init_monitor(&mnt, param, id_philo);
-	if (philo_create_monitor_thread(param, &mnt) != 0)
+	if (philo_create_monitor_thread(&mnt) != 0)
 		exit (THREAD_ERROR);
 	while (1)
 	{

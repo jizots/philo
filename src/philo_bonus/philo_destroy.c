@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_destory.c                                    :+:      :+:    :+:   */
+/*   philo_destroy.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:16:37 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 11:55:39 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:54:09 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ int	sem_close_and_unlink(sem_t *sem, char *name)
 
 	status = sem_close(sem);
 	if (status == -1)
-	return (philo_print_basic_error(SEM_ERROR));
+		return (philo_print_basic_error(SEM_ERROR));
 	status = sem_unlink(name);
 	if (status == -1)
 		return (philo_print_basic_error(SEM_ERROR));
 	return (0);
 }
 
-int philo_destroy_semaphore(t_param *param)
+int	philo_destroy_semaphore(t_param *param)
 {
 	int	status;
 

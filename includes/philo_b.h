@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 18:43:11 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:52:49 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/types.h>
+# include <signal.h>
 # include <sys/time.h>
 # include <pthread.h>
 # include <sys/wait.h>
@@ -44,6 +44,7 @@ waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
 # define FORK_ERROR 3
 # define THREAD_ERROR 4
 # define KILL_ERROR 5
+# define WAIT_ERROR 6
 # define GETTIMEOFDAY -1
 # define EAT 1
 # define SLEEP 2
@@ -61,6 +62,8 @@ typedef struct s_monitor
 	long		last_time_eat;
 	int			num_of_eat;
 	int			num_of_must_eat;
+	sem_t		*forks;
+	sem_t		*cordinator;
 	sem_t		*print_sem;
 	pthread_t	monitor_death;
 }	t_monitor;
@@ -84,15 +87,17 @@ int		philo_analys_argv(int ac, char *av[], t_param *param);
 int		ft_isdigit(int c);
 int		atoi_intmax(const char *str);
 //create_philo
+int		philo_create_semaphore(t_param *param);
 int		philo_create_philo(t_param *param);
 //simulate
+int		philo_start_party(t_param *param, int id_philo);
 //print_state
 int		philo_print_incorrect_argv(int flag);
 int		philo_print_basic_error(int flag);
 int		philo_print_with_errno(int flag, int error_no);
 int		philo_print_state(sem_t *print, int id_philo, int flag);
 //monitor
-int		philo_create_monitor_thread(t_param *param, t_monitor *mnt);
+int		philo_create_monitor_thread(t_monitor *mnt);
 //utils
 int		str_cmp(const char *s1, const char *s2);
 long	get_time(void);
@@ -101,6 +106,8 @@ void	usleep_precisely(int microseconds);
 //destory
 void	philo_destory_mutex(pthread_mutex_t *forks, int num_of_mutex);
 int		sem_close_and_unlink(sem_t *sem, char *name);
-int 	philo_destroy_semaphore(t_param *param);
+int		philo_destroy_semaphore(t_param *param);
+//fork_handling
+int		philo_drop_forks(sem_t *forks, sem_t *cordinator);
 
 #endif

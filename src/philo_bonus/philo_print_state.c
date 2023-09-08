@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 18:50:38 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:28:29 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	philo_print_basic_error(int flag)
 		printf("Error: gettimeofday: errno %d\n", errno);
 	else if (flag == KILL_ERROR)
 		printf("Error: kill: errno %d\n", errno);
+	else if (flag == WAIT_ERROR)
+		printf("Error: wait: errno %d\n", errno);
 	return (flag);
 }
 
@@ -65,6 +67,8 @@ void	print_state(int id_philo, int flag)
 		printf("%ld %3d died\n", get_time(), id_philo);
 	else if (flag == PICK_UP)
 		printf("%ld %3d has taken a fork\n", get_time(), id_philo);
+	else if (flag == FULL)
+		printf("%ld %3d is full\n", get_time(), id_philo);
 }
 
 int	philo_print_state(sem_t *print, int id_philo, int flag)

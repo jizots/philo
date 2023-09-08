@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 11:52:57 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:32:21 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ int	main(int ac, char *av[])
 		philo_destroy_semaphore(&param);
 		return (status);
 	}
-	
 	return (0);
 }
 
-__attribute__((destructor))
-static void	destructor(void)
-{
-	system("leaks -q philo");
-}
+// __attribute__((destructor))
+// static void	destructor(void)
+// {
+// 	system("leaks -q philo");
+// }

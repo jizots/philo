@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:26:31 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/07 14:45:34 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:54:41 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,29 @@ static bool	is_philo_full(t_monitor *mnt)
 
 static int	philo_monitor(t_monitor *mnt)
 {
+	int	status;
+
 	while (1)
 	{
 		if (is_philo_full(mnt) == true)
+		{
+			status = philo_drop_forks(mnt->forks, mnt->cordinator);
+			if (status != 0)
+				exit (status);
 			exit (0);
+		}
 		if ((get_time() - mnt->last_time_eat) > mnt->time_to_die)
-			philo_print_state(&(mnt->print_sem), mnt->id_philo, DEAD);
+			philo_print_state(mnt->print_sem, mnt->id_philo, DEAD);
 	}
 	return (0);
 }
 
-int	philo_create_monitor_thread(t_param *param, t_monitor *mnt)
+int	philo_create_monitor_thread(t_monitor *mnt)
 {
 	int	status;
 
-	status = pthread_create(&mnt->monitor_death, NULL, philo_monitor, (void *)mnt);
+	status = pthread_create(&mnt->monitor_death, NULL,
+			(void *)philo_monitor, (void *)mnt);
 	if (status != 0)
 		return (philo_print_with_errno(THREAD_ERROR, status));
 	return (0);
