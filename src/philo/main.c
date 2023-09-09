@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 14:58:21 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 10:07:22 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 void	init_param(t_param *param)
 {
-	param->num_of_philo = 0;
-	param->time_to_die = 0;
-	param->time_to_eat = 0;
-	param->time_to_sleep = 0;
-	param->num_of_must_eat = -1;
 	param->forks = NULL;
 	param->print_mutex = (pthread_mutex_t){0};
 	param->thread = NULL;

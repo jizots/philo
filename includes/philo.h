@@ -6,7 +6,7 @@
 /*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 09:08:35 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/09 10:08:43 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ pthread_mutex_lock, pthread_mutex_unlock*/
 # define INVALID_MATRIX 3
 # define INCLUDE_MINUS 4
 # define ZERO_PHILO 5
+# define ZERO_MUST_EAT 6
 # define MALLOC_ERROR 1
 # define MUTEX_ERROR 2
 # define THREAD_ERROR 3

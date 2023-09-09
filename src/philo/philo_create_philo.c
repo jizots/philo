@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_create_philo.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 20:04:03 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 11:53:05 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ int	philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt)
 			(void *)philo_start_party, (void *)&((*philo)[i]));
 		i++;
 	}
-	usleep(50 * 1000);
+	usleep(100);
 	return (0);
 }
