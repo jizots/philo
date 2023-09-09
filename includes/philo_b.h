@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_b.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 14:22:03 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 10:11:40 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ waitpid, sem_open, sem_close, sem_post, sem_wait, sem_unlink*/
 # define INVALID_MATRIX 3
 # define INCLUDE_MINUS 4
 # define ZERO_PHILO 5
+# define ZERO_MUST_EAT 6
 # define SEM_ERROR 1
 # define MALLOC_ERROR 2
 # define FORK_ERROR 3

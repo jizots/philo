@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_analys_argv.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:11:03 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/05 15:34:02 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 10:08:18 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ static int	import_criteria(int ac, t_param *param, char *av[])
 		return (philo_print_incorrect_argv(INCLUDE_MINUS));
 	if (ac == 6 && param->num_of_must_eat < 0)
 		return (philo_print_incorrect_argv(INCLUDE_MINUS));
+	if (param->num_of_must_eat == 0)
+		return (philo_print_incorrect_argv(ZERO_MUST_EAT));
 	return (0);
 }
 

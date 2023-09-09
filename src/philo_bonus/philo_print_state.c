@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_print_state.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 19:14:07 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 13:28:29 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 10:11:28 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	philo_print_incorrect_argv(int flag)
 		printf("Error: Number's must with in 0 to 2147483647\n");
 	else if (flag == ZERO_PHILO)
 		printf("Error: Number of philosophers must be greater than 0\n");
+	else if (flag == ZERO_MUST_EAT)
+		printf("Must eat zero: All philosopher are already full\n");
 	return (flag);
 }
 
