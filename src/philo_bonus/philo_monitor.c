@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:26:31 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 13:54:41 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:35:00 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	philo_create_monitor_thread(t_monitor *mnt)
 {
 	int	status;
 
-	status = pthread_create(&mnt->monitor_death, NULL,
+	status = pthread_create(&(mnt->monitor_death), NULL,
 			(void *)philo_monitor, (void *)mnt);
 	if (status != 0)
 		return (philo_print_with_errno(THREAD_ERROR, status));

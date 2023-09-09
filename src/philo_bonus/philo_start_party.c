@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_start_party.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:19:26 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 13:46:42 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:37:49 by hotph            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static int	pick_forks(t_param *param, t_monitor *mnt)
 static void	p_eat(t_param *param, t_monitor *mnt)
 {
 	philo_print_state(param->print_sem, mnt->id_philo, EAT);
-	mnt->num_of_eat += 1;
 	usleep_precisely(param->time_to_eat * 1000);
 }
 
@@ -51,6 +50,7 @@ static int	p_sleep(t_param *param, t_monitor *mnt)
 	status = philo_drop_forks(param->forks, param->cordinator);
 	if (status != 0)
 		return (status);
+	mnt->num_of_eat += 1;
 	philo_print_state(param->print_sem, mnt->id_philo, SLEEP);
 	usleep_precisely(param->time_to_sleep * 1000);
 	return (0);
