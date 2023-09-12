@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_create_philo.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/09 11:53:05 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/12 15:18:19 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	set_philo_each(t_param *param, t_philo **philo, t_monitor **mnt)
 	while (i < param->num_of_philo)
 	{
 		(*philo)[i].id_philo = i + 1;
+		(*philo)[i].num_of_philo = param->num_of_philo;
 		(*philo)[i].time_to_eat = param->time_to_eat;
 		(*philo)[i].time_to_sleep = param->time_to_sleep;
 		(*philo)[i].num_of_must_eat = param->num_of_must_eat;

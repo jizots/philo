@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 20:27:44 by hotph             #+#    #+#             */
-/*   Updated: 2023/09/07 19:19:07 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:20:49 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	philo_start_party(t_philo *philo)
 		usleep_precisely(philo->time_to_sleep * 1000);
 		if (philo_print_state(philo->print_mutex, philo->id_philo, THINK) != 0)
 			return (1);
+		if (philo->time_to_eat >= philo->time_to_sleep)
+			usleep(100);
 	}
 	return (0);
 }
