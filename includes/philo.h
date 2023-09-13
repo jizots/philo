@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/12 15:19:13 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/13 17:05:08 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int		philo_create_mutex(t_param *param);
 int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt);
 //simulate
 int		philo_start_party(t_philo *philo);
+void	usleep_precisely(int microseconds);
+void	is_teetime(int eat, int sleep);
 //print_state
 int		philo_print_incorrect_argv(int flag);
 int		philo_print_init_error(int flag);
