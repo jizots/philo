@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_b.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/09 10:11:40 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/16 16:06:57 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,14 @@ typedef struct s_monitor
 {
 	int			id_philo;
 	int			time_to_die;
-	long		last_time_eat;
+	long		*last_time_eat;
 	int			num_of_eat;
 	int			num_of_must_eat;
 	sem_t		*forks;
 	sem_t		*cordinator;
 	sem_t		*print_sem;
+	sem_t		*get_time;
+	sem_t		*times_eat;
 	pthread_t	monitor_death;
 }	t_monitor;
 
@@ -79,6 +81,8 @@ typedef struct s_param
 	sem_t	*forks;
 	sem_t	*cordinator;
 	sem_t	*print_sem;
+	sem_t	*get_time;
+	sem_t	*times_eat;
 	pid_t	*pid;
 }	t_param;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 18:46:36 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/09 12:40:08 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/16 17:56:38 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void	init_program(void)
 	sem_unlink("forks");
 	sem_unlink("cordinator");
 	sem_unlink("print_sem");
+	sem_unlink("gettime_sem");
+	sem_unlink("timeeat_sem");
 }
 
 int	main(int ac, char *av[])
@@ -36,12 +38,8 @@ int	main(int ac, char *av[])
 	if (status != 0)
 		return (status);
 	status = philo_create_philo(&param);
-	if (status != 0)
-	{
-		philo_destroy_semaphore(&param);
-		return (status);
-	}
-	return (0);
+	philo_destroy_semaphore(&param);
+	return (status);
 }
 
 // __attribute__((destructor))

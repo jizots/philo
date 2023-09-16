@@ -6,14 +6,15 @@
 #    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/13 16:50:58 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/16 18:09:42 by sotanaka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 BNAME = philo_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror 
+CFLAGS += -g -fsanitize=thread
 CFLAGS += -I${INCLUDES_DIR} -pthread
 
 SRCS = main.c philo_analys_argv.c philo_create_mutex.c philo_create_philo.c\
