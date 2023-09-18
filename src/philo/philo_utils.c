@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:55:09 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 09:10:00 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/16 12:25:45 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	philo_free(t_param *param, t_monitor *monitor, int status)
 {
 	if (param->forks)
 		philo_destory_mutex(param->forks, param->num_of_philo);
+	pthread_mutex_destroy(&(param->print_mutex));
+	pthread_mutex_destroy(&(param->full));
+	pthread_mutex_destroy(&(param->get_time));
 	if (param->thread)
 		free(param->thread);
 	if (monitor)

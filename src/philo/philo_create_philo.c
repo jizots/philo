@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:07:06 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/12 15:18:19 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:29:19 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	set_philo_each(t_param *param, t_philo **philo, t_monitor **mnt)
 		(*philo)[i].fork_right
 			= &((param->forks)[(i + 1) % param->num_of_philo]);
 		(*philo)[i].print_mutex = &(param->print_mutex);
+		(*philo)[i].full = &(param->full);
+		(*philo)[i].get_time = &(param->get_time);
 		(*philo)[i].monitor = &((*mnt)[i]);
 		i++;
 	}

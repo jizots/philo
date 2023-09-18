@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:16:37 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/08 14:21:56 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/16 17:14:51 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ int	philo_destroy_semaphore(t_param *param)
 	if (status != 0)
 		return (status);
 	status = sem_close_and_unlink(param->print_sem, "print_sem");
+	if (status != 0)
+		return (status);
+	status = sem_close_and_unlink(param->get_time, "gettime_sem");
+	if (status != 0)
+		return (status);
+	status = sem_close_and_unlink(param->times_eat, "timeeat_sem");
 	if (status != 0)
 		return (status);
 	return (0);

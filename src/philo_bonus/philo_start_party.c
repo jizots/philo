@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_start_party.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:19:26 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/09 12:37:49 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/16 17:25:29 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,28 @@ static void	init_monitor(t_monitor *mnt, t_param *param, int id_philo)
 	mnt->forks = param->forks;
 	mnt->cordinator = param->cordinator;
 	mnt->print_sem = param->print_sem;
-	mnt->last_time_eat = get_time();
+	mnt->get_time = param->get_time;
+	mnt->times_eat = param->times_eat;
+	mnt->last_time_eat = malloc(sizeof(long) * 1);
+	if (mnt->last_time_eat == NULL)
+		exit (philo_print_basic_error(MALLOC_ERROR));
+	*(mnt->last_time_eat) = get_time();
 }
 
 static int	pick_forks(t_param *param, t_monitor *mnt)
 {
-	if (sem_wait(param->cordinator) != 0)
+	if (sem_wait(param->cordinator) == -1)
 		return (philo_print_basic_error(SEM_ERROR));
-	if (sem_wait(param->forks) != 0)
+	if (sem_wait(param->forks) == -1)
 		return (philo_print_basic_error(SEM_ERROR));
 	philo_print_state(param->print_sem, mnt->id_philo, PICK_UP);
-	if (sem_wait(param->forks) != 0)
+	if (sem_wait(param->forks) == -1)
 		return (philo_print_basic_error(SEM_ERROR));
-	mnt->last_time_eat = get_time();
+	if (sem_wait(mnt->get_time) == -1)
+		return (philo_print_basic_error(SEM_ERROR));
+	*(mnt->last_time_eat) = get_time();
+	if (sem_post(mnt->get_time) == -1)
+		return (philo_print_basic_error(SEM_ERROR));
 	return (0);
 }
 
@@ -50,7 +59,11 @@ static int	p_sleep(t_param *param, t_monitor *mnt)
 	status = philo_drop_forks(param->forks, param->cordinator);
 	if (status != 0)
 		return (status);
+	if (sem_wait(mnt->times_eat) == -1)
+		return (philo_print_basic_error(SEM_ERROR));
 	mnt->num_of_eat += 1;
+	if (sem_post(mnt->times_eat) == -1)
+		return (philo_print_basic_error(SEM_ERROR));
 	philo_print_state(param->print_sem, mnt->id_philo, SLEEP);
 	usleep_precisely(param->time_to_sleep * 1000);
 	return (0);
@@ -63,7 +76,10 @@ int	philo_start_party(t_param *param, int id_philo)
 
 	init_monitor(&mnt, param, id_philo);
 	if (philo_create_monitor_thread(&mnt) != 0)
+	{
+		free(mnt.last_time_eat);
 		exit (THREAD_ERROR);
+	}
 	while (1)
 	{
 		status = pick_forks(param, &mnt);
@@ -75,5 +91,6 @@ int	philo_start_party(t_param *param, int id_philo)
 			break ;
 		philo_print_state(param->print_sem, mnt.id_philo, THINK);
 	}
+	free(mnt.last_time_eat);
 	exit (status);
 }

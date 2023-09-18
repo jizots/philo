@@ -6,7 +6,7 @@
 /*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 11:52:19 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/13 17:05:08 by sotanaka         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:47:09 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_param
 	int				num_of_must_eat;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	full;
+	pthread_mutex_t	get_time;
 	pthread_t		*thread;
 }	t_param;
 
@@ -80,6 +82,8 @@ typedef struct s_philo
 	pthread_mutex_t	*fork_left;
 	pthread_mutex_t	*fork_right;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*full;
+	pthread_mutex_t	*get_time;
 	t_monitor		*monitor;
 }	t_philo;
 
@@ -89,7 +93,7 @@ int		philo_analys_argv(int ac, char *av[], t_param *param);
 int		ft_isdigit(int c);
 int		atoi_intmax(const char *str);
 //create_philo
-int		philo_create_mutex(t_param *param);
+int		philo_create_mutex(t_param *param, t_monitor *monitor);
 int		philo_create_philo(t_param *param, t_philo **philo, t_monitor **mnt);
 //simulate
 int		philo_start_party(t_philo *philo);

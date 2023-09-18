@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_monitor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hotph <hotph@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:26:31 by sotanaka          #+#    #+#             */
-/*   Updated: 2023/09/09 12:35:00 by hotph            ###   ########.fr       */
+/*   Updated: 2023/09/16 18:13:30 by sotanaka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@ static bool	is_philo_full(t_monitor *mnt)
 {
 	if (mnt->num_of_must_eat != -1)
 	{
+		sem_wait(mnt->times_eat);
 		if (mnt->num_of_eat == mnt->num_of_must_eat)
 		{
+			sem_post(mnt->times_eat);
 			philo_print_state(mnt->print_sem, mnt->id_philo, FULL);
 			return (true);
 		}
+		sem_post(mnt->times_eat);
 	}
 	return (false);
 }
@@ -34,12 +37,19 @@ static int	philo_monitor(t_monitor *mnt)
 		if (is_philo_full(mnt) == true)
 		{
 			status = philo_drop_forks(mnt->forks, mnt->cordinator);
+			free(mnt->last_time_eat);
 			if (status != 0)
 				exit (status);
 			exit (0);
 		}
-		if ((get_time() - mnt->last_time_eat) > mnt->time_to_die)
+		if (sem_wait(mnt->get_time) == -1)
+			philo_print_basic_error(SEM_ERROR);
+		if ((get_time() - *(mnt->last_time_eat)) > mnt->time_to_die)
+		{
+			sem_post(mnt->get_time);
 			philo_print_state(mnt->print_sem, mnt->id_philo, DEAD);
+		}
+		sem_post(mnt->get_time);
 	}
 	return (0);
 }
