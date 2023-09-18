@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sotanaka <sotanaka@student.42.fr>          +#+  +:+       +#+         #
+#    By: hotph <hotph@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/03 16:30:18 by sotanaka          #+#    #+#              #
-#    Updated: 2023/09/16 18:09:42 by sotanaka         ###   ########.fr        #
+#    Updated: 2023/09/18 14:13:19 by hotph            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 CFLAGS += -g -fsanitize=thread
 CFLAGS += -I${INCLUDES_DIR} -pthread
-
+# CFLAGS += -fsanitize=thread -g
 SRCS = main.c philo_analys_argv.c philo_create_mutex.c philo_create_philo.c\
 		philo_start_party.c philo_start_party2.c philo_print_state.c philo_monitor.c philo_utils.c\
 		atoi_intmax.c ft_isdigit.c\
